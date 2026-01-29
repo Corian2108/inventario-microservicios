@@ -27,6 +27,11 @@ namespace Products_API.Repositories
             .ToListAsync();
         }
 
+        public async Task<List<Category>> GetAllCatAsync()
+        {
+            return await _context.Category.ToListAsync();
+        }
+
         public async Task<Product?> GetByIdAsync(int id)
         {
             return await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);

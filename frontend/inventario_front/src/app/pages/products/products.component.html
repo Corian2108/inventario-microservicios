@@ -12,6 +12,7 @@
             <th>Precio</th>
             <th>Stock</th>
             <th>Imagen</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +28,19 @@
                 <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="{{ product.name }}" width*>
                 <span *ngIf="!product.imageUrl">N/A</span>
             </td>
+            <td>
+                <!-- Botón Editar -->
+                <button (click)="editProduct(product)" title="Editar" style="margin-bottom: 5px;">✏️</button>
+
+                <!-- Botón Eliminar -->
+                <button (click)="deleteProduct(product.productId)" title="Eliminar">🗑️</button>
+            </td>
         </tr>
     </tbody>
 </table>
+
+<div style="margin-top: 20px; text-align: center;">
+    <button (click)="createProduct()" style="padding: 10px 20px; font-size: 1.1rem;">
+        ➕ Crear Producto
+    </button>
+</div>

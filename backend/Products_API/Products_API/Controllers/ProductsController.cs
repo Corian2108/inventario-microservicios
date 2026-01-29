@@ -33,6 +33,16 @@ namespace Products_API.Controllers
             return Ok(products);
         }
 
+
+        // GET: api/categories
+        //Devuelve todas las categorías
+        [HttpGet("categories")]
+        public async Task<IActionResult> GetAllCat()
+        {
+            var category = await _productService.GetAllCatAsyn();
+            return Ok(category);
+        }
+
         // GET: api/products/{id}
         //Devuelve un producto consultado por id
         [HttpGet("{id:int}")]

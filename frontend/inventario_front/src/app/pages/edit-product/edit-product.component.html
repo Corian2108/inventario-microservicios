@@ -1,0 +1,32 @@
+<h2 style="text-align: center; margin-bottom: 20px;">
+    {{ product !== null ? 'Editar Producto' : 'Crear Producto' }}
+</h2>
+
+<form (ngSubmit)="onSubmit()"
+    style="display: flex; flex-direction: column; gap: 10px; width: 60%; margin-inline: auto;">
+    <label *ngIf="!product !== null">Lote:</label>
+    <input *ngIf="!product !== null" type="text" [(ngModel)]="newProduct.batch" name="lote" required>
+
+    <label>Categoría:</label>
+    <select [(ngModel)]="newProduct.category.categoryId" name="category">
+        <option *ngFor="let category of categoryMap" [value]="category.categoryId">{{ category.name }}</option>
+    </select>
+
+    <label>Descripción:</label>
+    <input type="text" [(ngModel)]="newProduct.description" name="description">
+
+    <label *ngIf="!product !== null">Imagen Url</label>
+    <input *ngIf="!product !== null" type="text" [(ngModel)]="newProduct.imageUrl" name="image">
+
+    <label>Nombre:</label>
+    <input type="text" [(ngModel)]="newProduct.name" name="name" required>
+
+    <label>Precio:</label>
+    <input type="number" [(ngModel)]="newProduct.price" name="price" min="0">
+
+    <label *ngIf="!product !== null">Stock:</label>
+    <input *ngIf="!product !== null" type="number" [(ngModel)]="newProduct.stock" name="stock" min="0">
+
+    <button type="submit" style="width: 50%; margin-inline: auto; font-size: larger; margin-block: 10px;">{{ product !==
+        null ? 'Guardar cambios' : '➕ Crear producto' }}</button>
+</form>

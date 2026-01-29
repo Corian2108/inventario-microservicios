@@ -2,7 +2,7 @@ import { Category } from "./ICategory";
 
 export interface Product {
     batch: string;
-    category: Category;
+    category: Category | null;
     categoryFk: string;
     description: string;
     entryDate: Date;
