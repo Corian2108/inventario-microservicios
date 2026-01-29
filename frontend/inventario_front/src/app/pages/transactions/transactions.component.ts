@@ -90,7 +90,7 @@ export class TransactionsComponent implements OnInit {
           this.transactions = res;
           this.transactions.forEach(t => {
             for (let prod of this.products) {
-              if (prod.productId == t.transactionId) {
+              if (prod.productId == t.productId) {
                 t.productName = prod.name
                 break
               }
@@ -135,10 +135,16 @@ export class TransactionsComponent implements OnInit {
 
     let url = '';
 
-    if (this.newTransaction.type === 1) {
-      url = `${this.apiUrl}/purchase`;
-    } else if (this.newTransaction.type === 2) {
-      url = `${this.apiUrl}/sale`;
+    this.newTransaction.type = Number(this.newTransaction.type);
+    this.newTransaction.productId = Number(this.newTransaction.productId);
+    const timestamp = Date.now();
+    const date = new Date(timestamp);
+    this.newTransaction.transactionDate = date.toISOString()
+
+    if (this.newTransaction.type == 1) {
+      url = `${this.apiUrl}/Transactions/purchase`;
+    } else if (this.newTransaction.type == 2) {
+      url = `${this.apiUrl}/Transactions/sale`;
     } else {
       alert('Tipo de transacción inválido');
       return;
