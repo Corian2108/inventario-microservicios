@@ -1,1 +1,85 @@
-<p>transactions works!</p>
+<div style="display: flex; gap: 20px; padding: 20px;">
+
+    <div style="width: 30%; border-right: 1px solid #ddd; padding-right: 20px;">
+        <h3>Filtros</h3>
+
+        <label>Fecha inicio</label>
+        <input type="date" [(ngModel)]="startDate" style="width: 100%; margin-bottom: 10px;" />
+
+        <label>Fecha fin</label>
+        <input type="date" [(ngModel)]="endDate" style="width: 100%; margin-bottom: 10px;" />
+
+        <label>Tipo de transacción</label>
+        <select [(ngModel)]="selectedType" style="width: 100%; margin-bottom: 15px;">
+            <option [value]="1">Compra</option>
+            <option [value]="2">Venta</option>
+        </select>
+
+        <button (click)="getTransactionsFiltered(startDate, endDate, selectedType)"
+            style="width: 100%; padding: 10px; font-weight: bold;">
+            Consultar
+        </button>
+    </div>
+
+    <div style="width: 70%; padding-left: 20px;">
+
+        <h2 style="text-align: center;">Transacciones</h2>
+        <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 20px;">
+
+            <div style="flex: 2; display: flex; gap: 10px;">
+                <select [(ngModel)]="newTransaction.type">
+                    <option [value]="1">Compra</option>
+                    <option [value]="2">Venta</option>
+                </select>
+
+                <select [(ngModel)]="newTransaction.productId" (ngModelChange)="recalculatePrices()">
+                    <option *ngFor="let p of products" [value]="p.productId">
+                        {{ p.name }}
+                    </option>
+                </select>
+
+                <input type="number" min="1" placeholder="Cantidad" [(ngModel)]="newTransaction.quantity"
+                    (ngModelChange)="recalculatePrices()" />
+            </div>
+
+            <div style="flex: 1;">
+                <div>Precio unitario: <strong>{{ this.newTransaction.unitPrice| number:'1.2-2' }}</strong></div>
+                <div>Total: <strong>{{ this.newTransaction.totalPrice| number:'1.2-2' }}</strong></div>
+            </div>
+
+            <div>
+                <button (click)="saveTransaction()" style="padding: 10px 20px; font-weight: bold;">
+                    Guardar
+                </button>
+            </div>
+        </div>
+
+        <table border="1" width="100%" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Tipo</th>
+                    <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>Total</th>
+                    <th>Fecha</th>
+                    <th>Detalle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let t of transactions">
+                    <td>{{ t.transactionId }}</td>
+                    <td>{{ t.productName }}</td>
+                    <td>{{ t.typeName }}</td>
+                    <td>{{ t.quantity }}</td>
+                    <td>{{ t.unitPrice | number:'1.2-2' }}</td>
+                    <td>{{ t.totalPrice | number:'1.2-2' }}</td>
+                    <td>{{ t.transactionDate | date:'yyyy-MM-dd' }}</td>
+                    <td>{{ t.detail }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
