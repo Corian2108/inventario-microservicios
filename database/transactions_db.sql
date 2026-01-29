@@ -22,7 +22,9 @@ CREATE TABLE transactions (
     type_fk INT NOT NULL,
     quantity INT NOT NULL,
     [date] DATETIME NOT NULL,
-    notes NVARCHAR(50) NULL,
+	unit_price DECIMAL (18,2),
+	total_price DECIMAL (18,2),
+    detail NVARCHAR(255) NULL,
     created_at DATETIME NOT NULL DEFAULT GETDATE(),
     CONSTRAINT PK_transacrions PRIMARY KEY (transaction_id),
     CONSTRAINT FK_transaction_type 
@@ -46,8 +48,7 @@ BEGIN
 		
 		INSERT INTO [type] ([name])
 		VALUES ('Compra'),
-		('Venta'),
-		('Baja de inventario')
+		('Venta')
 
 	END
 END
@@ -59,5 +60,4 @@ EXEC sp_seed_types
 --inserción de datos de prueba
 INSERT INTO transactions (product_id, type_fk, quantity, [date], notes)
 VALUES (1, 1, 200, '2026-01-27', 'ingreso de inventrio'),
-(4, 2, 1, '2026-01-27', 'venta al detal'),
-(6, 3, 2, '2026-01-27', 'daño por humedad')
+(4, 2, 1, '2026-01-27', 'venta al detal')

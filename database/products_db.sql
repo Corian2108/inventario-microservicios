@@ -20,6 +20,7 @@ CREATE TABLE products (
     product_id INT IDENTITY(1,1) NOT NULL,
     [name] NVARCHAR(150) NOT NULL,
     category_fk INT NOT NULL,
+    [description] NVARCHAR(255) NULL,
     price DECIMAL(18,2) NOT NULL,
     stock INT NOT NULL,
     batch NVARCHAR(50) NULL,
@@ -66,10 +67,10 @@ EXEC sp_seed_categories;
 SELECT * FROM category
 
 -- Inserción de datos de prueba
-INSERT INTO products ([name], category_fk, price, stock, batch, entry_date, image_url)
-VALUES ('Arroz Blanco envejecido 1kg', 1, 1.45, 120, 'L2026-ARZ-01', '2026-01-26', 'assets/img/1.jpg'),
-('Detergente Líquido Deja 2L', 2, 4.80, 45, 'L2026-DET-02', '2026-01-26', 'assets/img/2.jpg'),
-('Botella Plástica 1L', 3, 0.35, 300, 'L2026-BOT-05', '2026-01-26', 'assets/img/3.jpg'),
-('Shampoo Anticaspa Savital 400ml', 4, 3.95, 60, 'L2026-SHAM-03', '2026-01-26', 'assets/img/4.jpg'),
-('Gaseosa CocaCola 2L', 5, 2.10, 80, 'L2026-GAS-07', '2026-01-26', 'assets/img/5.jpg'),
-('Resma de Papel A4', 6, 6.50, 25, 'L2026-PAP-04', '2026-01-26', 'assets/img/6.jpg')
+INSERT INTO products ([name], category_fk, [description], price, stock, batch, entry_date, image_url)
+VALUES ('Arroz Blanco envejecido 1kg', 1, 'Arroz blanco de la marca osito', 1.45, 120, 'L2026-ARZ-01', '2026-01-26', 'assets/img/1.jpg'),
+('Detergente Líquido Deja 2L', 2, 'Deterjente líquido sueve con las manos marca deja', 4.80, 45, 'L2026-DET-02', '2026-01-26', 'assets/img/2.jpg'),
+('Botella Plástica 1L', 3, 'Botella para contener bebidas de consumo, no apto para limpiadores',  0.35, 300, 'L2026-BOT-05', '2026-01-26', 'assets/img/3.jpg'),
+('Shampoo Anticaspa Savital 400ml', 4, 'Shampoo para evitar la caspa en estados tempranos',  3.95, 60, 'L2026-SHAM-03', '2026-01-26', 'assets/img/4.jpg'),
+('Gaseosa CocaCola 2L', 5, 'Formula tradicional', 2.10, 80, 'L2026-GAS-07', '2026-01-26', 'assets/img/5.jpg'),
+('Resma de Papel A4', 6, 'Marca high tech apta para impresora laser', 6.50, 25, 'L2026-PAP-04', '2026-01-26', 'assets/img/6.jpg')
