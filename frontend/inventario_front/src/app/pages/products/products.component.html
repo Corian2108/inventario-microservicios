@@ -1,0 +1,32 @@
+<!-- products.component.html -->
+<h2>Productos</h2>
+
+<table border="1" cellpadding="5" cellspacing="0" style="width: 100%; text-align: left;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Lote</th>
+            <th>Descripción</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Imagen</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products">
+            <td>{{ product.productId }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.batch }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.category.name }}</td>
+            <td>{{ product.price | currency:'USD':'symbol':'1.2-2' }}</td>
+            <td>{{ product.stock }}</td>
+            <td>
+                <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="{{ product.name }}" width*>
+                <span *ngIf="!product.imageUrl">N/A</span>
+            </td>
+        </tr>
+    </tbody>
+</table>

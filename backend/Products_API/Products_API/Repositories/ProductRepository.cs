@@ -22,7 +22,9 @@ namespace Products_API.Repositories
 
         public async Task<List<Product>> GetAllAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+            .Include(p => p.Category) // trae la categoría relacionada
+            .ToListAsync();
         }
 
         public async Task<Product?> GetByIdAsync(int id)

@@ -22,7 +22,6 @@ namespace Transactions_API.Entities
         [Column("date")]
         public DateTime TransactionDate { get; set; }
 
-
         [Column("detail")]
         public string Detail { get; set; } = string.Empty;
 
@@ -31,5 +30,10 @@ namespace Transactions_API.Entities
 
         [Column("total_price")]
         public decimal TotalPrice { get; set; }
+        
+        [NotMapped]
+        public string TypeName { get; set; } = string.Empty;
+
+
     }
 }

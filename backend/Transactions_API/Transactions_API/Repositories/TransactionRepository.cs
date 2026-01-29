@@ -22,7 +22,15 @@ namespace Transactions_API.Repositories
 
         public async Task<Transaction?> GetByIdAsync(int id)
         {
-            return await _context.Transactions.FirstOrDefaultAsync(p => p.TransactionId == id);
+            var transaction = await _context.Transactions
+                .FirstOrDefaultAsync(p => p.TransactionId == id);
+
+            if (transaction != null)
+            {
+                transaction.TypeName = transaction.Type == 1 ? "Compra" : "Venta";
+            }
+
+            return transaction;
         }
 
         public async Task<List<Transaction>> GetByFiltersAsync(
@@ -41,9 +49,17 @@ namespace Transactions_API.Repositories
             if (type != null)
                 query = query.Where(t => t.Type == type);
 
-            return await query
+            var list = await query
                 .OrderByDescending(t => t.TransactionDate)
                 .ToListAsync();
+
+            // asignar el nombre legible del tipo
+            foreach (var t in list)
+            {
+                t.TypeName = t.Type == 1 ? "Compra" : "Venta";
+            }
+
+            return list;
         }
 
     }

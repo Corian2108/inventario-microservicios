@@ -32,5 +32,8 @@ namespace Products_API.Entities
 
         [Column("image_url")]
         public string ImageUrl { get; set; } = string.Empty;
+
+        [ForeignKey("CategoryFk")]
+        public Category? Category { get; set; }
     }
 }

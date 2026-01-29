@@ -5,6 +5,18 @@ using Products_API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularLocalhost",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200") // Angular
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -18,6 +30,8 @@ builder.Services.AddDbContext<ProductsDbContext>(options =>
 
 
 var app = builder.Build();
+
+app.UseCors("AllowAngularLocalhost");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

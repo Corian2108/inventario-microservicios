@@ -5,6 +5,17 @@ using Transactions_API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularLocalhost",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200") // Angular
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -15,6 +26,7 @@ builder.Services.AddScoped<TransactionService>();
 builder.Services.AddScoped<TransactionRepository>();
 builder.Services.AddDbContext<TransactionsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TransactionsDb")));
+
 builder.Services.AddHttpClient("ProductsApi", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7159"); // Products API
@@ -22,6 +34,8 @@ builder.Services.AddHttpClient("ProductsApi", client =>
 
 
 var app = builder.Build();
+
+app.UseCors("AllowAngularLocalhost");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
